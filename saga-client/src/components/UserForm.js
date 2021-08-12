@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { addUser } from '../actions/users'
 
@@ -60,6 +61,7 @@ export default function UserForm() {
                     onChange={handleInputChange} />
             </div>
             <button className="btn btn-primary" type="submit">Save</button>
+            <Link to="/" className="btn btn-warning">Cancel</Link>
         </form>
     );
 

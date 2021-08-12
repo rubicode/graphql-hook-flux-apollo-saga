@@ -1,4 +1,4 @@
-import UserForm from "./UserForm";
+import { Link } from "react-router-dom";
 import UserList from "./UserList";
 
 export default function UserBox(props) {
@@ -6,9 +6,11 @@ export default function UserBox(props) {
         <div className="container">
             <div className="card">
                 <div className="card-body">
-                    <UserForm />
+                    <UserList />
                 </div>
-                <UserList />
+                <div className="card-footer">
+                <Link to="/add" className="btn btn-primary">Tambah</Link>
+                </div>
             </div>
         </div>
     )

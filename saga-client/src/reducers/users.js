@@ -2,7 +2,11 @@ import {
     DRAW_LOAD_USER,
     DRAW_ADD_USER,
     FAILED_ADD_USER,
-    SUCCESS_RESEND_USER
+    SUCCESS_RESEND_USER,
+    FAILED_LOAD_USER,
+    FAILED_REMOVE_USER,
+    SUCCESS_REMOVE_USER,
+    SUCCESS_ADD_USER
 } from '../constants'
 
 const users = (state = [], action) => {
@@ -36,7 +40,10 @@ const users = (state = [], action) => {
                 return item
             })
 
-            case SUCCESS_RESEND_USER:
+            case SUCCESS_REMOVE_USER:
+                return state.filter(item => item.username !== action.username)
+
+        case SUCCESS_RESEND_USER:
             return state.map((item) => {
                 if (item.username === action.username) {
                     item.sent = true;
@@ -44,6 +51,9 @@ const users = (state = [], action) => {
                 return item
             })
 
+        case FAILED_LOAD_USER:
+        case SUCCESS_ADD_USER:
+            case FAILED_REMOVE_USER:
         default:
             return state
     }
