@@ -6,11 +6,11 @@ import UserBox from './src/components/UserBox'
 import UserForm from './src/components/UserForm'
 
 
-import rootReducer from './reducers';
+import rootReducer from './src/reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga'
-import rootSaga from './sagas/users'
+import rootSaga from './src/sagas/users'
 
 const sagaMiddleware = createSagaMiddleware()
 const enhancer = compose(applyMiddleware(sagaMiddleware))
@@ -21,7 +21,7 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <Provider>
+    <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={UserBox} />

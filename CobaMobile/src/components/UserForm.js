@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {TextInput, Button, View} from 'react-native';
 
 import { addUser } from '../actions/users'
 
-export default function UserForm() {
+export default function UserForm({navigation}) {
 
     const initialUserState = {
         username: "",
@@ -16,53 +16,39 @@ export default function UserForm() {
 
     const dispatch = useDispatch();
 
-    const handleInputChange = event => {
-        const { name, value } = event.target;
-        setUser({ ...user, [name]: value });
+    const handleChangeUsername = value => {
+        setUser({ ...user, username: value });
     };
 
-    const saveUser = (event) => {
+    const handleChangeName = value => {
+        setUser({ ...user, name: value });
+    };
+
+    const handleChangeAge = value => {
+        setUser({ ...user, age: value });
+    };
+
+    const saveUser = () => {
         const { username, name, age } = user;
 
         dispatch(addUser(username, name, age))
 
         setUser(initialUserState)
 
-        event.preventDefault()
+        navigation.navigate('Home')
     }
 
     return (
-        <form onSubmit={saveUser}>
-            <div className="mb-3">
-                <label>Username</label>
-                <input
-                    className="form-control"
-                    name="username"
-                    type="text"
-                    value={user.username}
-                    onChange={handleInputChange} />
-            </div>
-            <div className="mb-3">
-                <label>Name</label>
-                <input
-                    className="form-control"
-                    name="name"
-                    type="text"
-                    value={user.name}
-                    onChange={handleInputChange} />
-            </div>
-            <div className="mb-3">
-                <label>Age</label>
-                <input
-                    className="form-control"
-                    name="age"
-                    type="number"
-                    value={user.age}
-                    onChange={handleInputChange} />
-            </div>
-            <button className="btn btn-primary" type="submit">Save</button>
-            <Link to="/" className="btn btn-warning">Cancel</Link>
-        </form>
-    );
+        <View style={{ padding: 10, flex: 1 }}>
+                <Button
+                    title="Batal"
+                    onPress={() => this.props.navigation.goBack()}
+                />
+                <TextInput style={{ height: 40 }} placeholder="Masukkan username" onChangeText={handleChangeUsername} />
+                <TextInput style={{ height: 40 }} placeholder="Masukkan nama" onChangeText={handleChangeName} />
+                <TextInput style={{ height: 40 }} placeholder="Masukkan umur" onChangeText={handleChangeAge} />
+                <Button onPress={saveUser} title="Simpan" />
+            </View>
+    )
 
 }

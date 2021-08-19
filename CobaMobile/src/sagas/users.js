@@ -1,11 +1,10 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 import * as actions from '../actions/users';
 import axios from 'axios'
-import history from '../history'
 
 import { ADD_USER, LOAD_USER, REMOVE_USER, RESEND_USER } from '../constants'
 
-const API_URL = 'http://localhost:3000/'
+const API_URL = 'http://192.168.1.7:3000/'
 
 const request = axios.create({
     baseURL: API_URL,
@@ -61,7 +60,6 @@ function* addUser(payload) {
     try {
         const data = yield call(add, PATH, { username, name, age });
         yield put(actions.successAddUser(data));
-        history.push('/')
     } catch (error) {
         console.log(error);
         yield put(actions.failedAddUser(username));

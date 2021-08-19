@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { FlatList, StyleSheet, View } from 'react-native'
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 
 import UserItem from './UserItem'
@@ -17,22 +18,21 @@ export default function UserList(props) {
         dispatch(loadUser());
     }, [dispatch]);
 
-    let nodeList = users.map((item, index) => <UserItem {...item} key={index} />)
-
     return (
-        <table className="table table-striped">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {nodeList}
-            </tbody>
-        </table>
+        <View style={styles.container}>
+            <FlatList
+                data={users}
+                renderItem={({ item }) => <UserItem {...item} key={item.username} />}
+                keyExtractor={item => item.username}
+            />
+        </View>
     )
 
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 22
+    }
+})
